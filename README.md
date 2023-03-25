@@ -1,2 +1,5 @@
-# notion-pokedex
-A project using the notion API to create a pokedex
+# Pokédex Notion API
+
+## Resources:
+### PokéAPI
+[https://pokeapi.co/docs/v2](Docs)
