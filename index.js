@@ -9,7 +9,7 @@ const notion = new Client({ auth: process.env.NOTION_KEY });
 const pokeArray = [];
 
 const getPokemon = async () => {
-    for (let i = 0; i <= 1; i++) {
+    for (let i = 0; i <= 10; i++) {
         await axios
             .get(`https://pokeapi.co/api/v2/pokemon/${i}`)
             .then((poke) => {
@@ -66,6 +66,7 @@ const getPokemon = async () => {
                             .front_default,
                     bulbURL: bulbURL,
                 };
+
                 pokeArray.push(pokeData);
                 console.log(`Fetching ${pokeData.name} from PokeAPI`);
             })
@@ -87,6 +88,18 @@ async function createNotionPage() {
                 type: "database_id",
                 database_id: process.env.NOTION_DATABASE_ID,
             },
+            cover: {
+                type: "external",
+                external: {
+                    url: pokemon.artwork,
+                },
+            },
+            icon: {
+                type: "external",
+                external: {
+                    url: pokemon.sprite,
+                },
+            },
             properties: {
                 Name: {
                     title: [
@@ -101,6 +114,7 @@ async function createNotionPage() {
                 No: {
                     number: pokemon.number,
                 },
+                Type: { multi_select: pokemon.types },
                 HP: { number: pokemon.hp },
                 Attack: { number: pokemon.attack },
                 Defense: { number: pokemon.defense },
@@ -110,6 +124,15 @@ async function createNotionPage() {
                 Height: { number: pokemon.height },
                 Weight: { number: pokemon.weight },
             },
+            children: [
+                {
+                    object: "block",
+                    type: "bookmark",
+                    bookmark: {
+                        url: pokemon.bulbURL,
+                    },
+                },
+            ],
         });
         console.log(response);
     }
