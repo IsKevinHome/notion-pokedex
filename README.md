@@ -1,7 +1,7 @@
 # Pokédex Notion API
 ##
 About:
-This is a simple project using the PokeAPI to write to a Notion database.
+This is a simple project using the PokeAPI to write to a Notion database.   Good practice
 
 ## Resources:
 ### PokéAPI
